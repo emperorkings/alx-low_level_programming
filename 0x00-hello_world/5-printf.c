@@ -2,7 +2,6 @@
 /**
  * main - A programme that printa with printf 
  * Return: 0 (passed)
- *
 
 int main(void)
 {
