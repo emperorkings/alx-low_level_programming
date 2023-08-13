@@ -19,6 +19,6 @@ int main(void)
 	else if (v == 0)
 		printf("last digit of %d is %d and is 0\n", n, v);
 	else if (v < 6 && v != 0)
-		printf("last digit of %d is %d and isless than 6 not equal to 0\n", n, v);
+		printf("last digit of %d is %d and isless than 6 not 0\n", n, v);
 	return (0);
 }
