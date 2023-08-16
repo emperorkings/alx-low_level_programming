@@ -1,15 +1,20 @@
-#include <stdio.h>
-#include <main.h>
+#include "main.h"
 /**
- * main - entry point
- * Description : a prpgram that prints a putchar in a new line.
- * return: always 0 (successful).
- *
+ * main - Entry point.
+ * Return: always 0 (success)
  */
 int main(void)
+
 {
-	printf("_putchar\n");
+_putchar('_');
+_putchar('p');
+_putchar('u');
+_putchar('t');
+_putchar('c');
+_putchar('h');
+_putchar('a');
+_putchar('r');
+_putchar('\n');
 
-	return (0);
+return (0);
 }
-
