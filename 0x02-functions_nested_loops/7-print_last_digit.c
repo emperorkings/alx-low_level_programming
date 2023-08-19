@@ -6,11 +6,13 @@
  */
 int print_last_digit(int zee)
 {
-	int last_digit = zee % 10;
+	int last_digit;
 
-	if (last_digit < 0)
-		last_digit = -last_digit;
+	if (zee < 0)
+		last_digit = -1 * (zee % 10);
+	else
+		last_digit = zee % 10;
+	_putchar(last_digit + '0');
 
-	last_digit += '0';
-	return (last_digit - '0');
+	return (last digit);
 }
