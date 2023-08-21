@@ -1,22 +1,19 @@
 #include "main.h"
 
 /**
- * swap - Swaps the values of two integers.
+ * swap_int - Swaps the values of two integers.
  * @a: Pointer to the first integer.
  * @b: Pointer to the second integer.
  *
  * Description: This function takes two pointers to integers and swaps
  * their values.
  */
-void swap(int *a, int *b)
+void swap_int(int *a, int *b)
 {
-	/* Store the value of 'a' in a temporary variable */
-	int temp = *a;
+	int m;
 
-	/* Assign the value of 'b' to 'a' */
+	m = *a;
 	*a = *b;
-
-	/* Assign the temporary value (originally 'a') to 'b' */
-	*b = temp;
+	*b = m;
 }
 
