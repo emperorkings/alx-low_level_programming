@@ -4,7 +4,6 @@
  * _strchr - Locates the first occurrence of a character in a string.
  * @s: The string to search in.
  * @c: The character to search for.
- *
  * Return: always return 0
  */
 char *_strchr(char *s, char c)
@@ -14,9 +13,11 @@ char *_strchr(char *s, char c)
 	for (; s[i] != '\0'; i++)
 	{
 		if (s[i] == c)
+		{
 			return (&s[i]);
 		}
 	}
 
 	return (0);
 }
+
