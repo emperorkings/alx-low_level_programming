@@ -1,43 +1,43 @@
 #include "main.h"
 
 /**
- * calculate_sqrt - Recursive helper function to find the square root.
+ * actual_sqrt_recursion - Recursively finds the root.
  * @n: The number to calculate the square root of.
- * @guess: The current guess for the square root.
+ * @i: The iterator for checking potential square roots.
  *
- * Return: The natural square root of n, or -1 if not found.
+ * Return: The resulting square root, or -1 if not found.
  */
-int calculate_sqrt(int n, int guess);
+int actual_sqrt_recursion(int n, int i);
 
 /**
- * _sqrt_recursion - Calculates the natural square root of a number.
+ * _sqrt_recursion - Returns the natural square root of a number.
  * @n: The number to calculate the square root of.
  *
- * Return: The natural square root of n, or -1 if n does not have a
- * natural square root.
+ * Return: The resulting square root, or -1 if n is negative.
  */
 int _sqrt_recursion(int n)
 {
 	if (n < 0)
 		return (-1);
-	{
-	return (calculate_sqrt(n, 0));
+
+	return (actual_sqrt_recursion(n, 0));
 }
 
 /**
- * calculate_sqrt - Recursive helper function to find the square root.
+ * actual_sqrt_recursion - Recursively finds the natue
  * @n: The number to calculate the square root of.
- * @guess: The current guess for the square root.
+ * @i: The iterator for checking potential square roots.
  *
- * Return: The natural square root of n, or -1 if not found.
+ * Return: The resulting square root, or -1 if not found.
  */
-int calculate_sqrt(int n, int guess)
+int actual_sqrt_recursion(int n, int i)
 {
-	if (guess * guess == n)
-		return (guess);
-
-	if (guess * guess > n)
+	if (i * i > n)
 		return (-1);
+
+	if (i * i == n)
+		return (i);
+
+	return (actual_sqrt_recursion(n, i + 1));
 }
-	return (calculate_sqrt(n, guess + 1));
-}
+
