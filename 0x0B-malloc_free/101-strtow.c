@@ -1,170 +1,118 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "main.h"
 
 /**
- * create_array - Creates an array of chars
- * @size: Size of the array to create.
- * @c: Char to initialize the array with.
+ * count_words - Counts the number of words in a string.
+ * @str: The string to count words in.
  *
- * Return: A pointer to the created array, or NULL if it fails.
+ * Return: The number of words.
  */
-char *create_array(unsigned int size, char c)
+int count_words(char *str)
 {
-	char *str;
-	unsigned int i;
+	int count = 0;
+	int in_word = 0; /* Flag to track if we are inside a word */
 
-	if (size == 0)
-		return (NULL);
-
-	str = malloc(sizeof(char) * size);
-
-	if (str == NULL)
-		return (NULL);
-
-	for (i = 0; i < size; i++)
-		str[i] = c;
-
-	return (str);
-}
-
-/**
- * _strdup - Duplicates a string to a new memory space location.
- * @str: The string to duplicate.
- *
- * Return: A NULL if it fails.
- */
-char *_strdup(char *str)
-{
-	char *dup;
-	int i, r = 0;
-
-	if (str == NULL)
-		return (NULL);
-
-	i = 0;
-
-	while (str[i] != '\0')
-		i++;
-
-	dup = malloc(sizeof(char) * (i + 1));
-
-	if (dup == NULL)
-		return (NULL);
-
-	for (r = 0; str[r]; r++)
-		dup[r] = str[r];
-
-	return (dup);
-}
-
-/**
- * str_concat - Concatenates two strings.
- * @s1: The first string to concatenate.
- * @s2: The second string to concatenate.
- *
- * Return: A in memory containing the concatenated strings.
- */
-char *str_concat(char *s1, char *s2)
-{
-	char *concat;
-	int i, ci;
-
-	if (s1 == NULL)
-		s1 = "";
-
-	if (s2 == NULL)
-		s2 = "";
-
-	i = ci = 0;
-
-	while (s1[i] != '\0')
-		i++;
-
-	while (s2[ci] != '\0')
-		ci++;
-
-	concat = malloc(sizeof(char) * (i + ci + 1));
-
-	if (concat == NULL)
-		return (NULL);
-
-	i = ci = 0;
-
-	while (s1[i] != '\0')
+	while (*str)
 	{
-		concat[i] = s1[i];
-		i++;
-	}
-
-	while (s2[ci] != '\0')
-	{
-		concat[i] = s2[ci];
-		i++, ci++;
-	}
-
-	concat[i] = '\0';
-
-	return (concat);
-}
-
-/**
- * alloc_grid - Allocates a 2-dimensional array
- * @width: The width of the grid.
- * @height: The height of the grid.
- *
- * Return: A pointer to the allocated 2D array of integers.
- */
-int **alloc_grid(int width, int height)
-{
-	int **mee;
-	int x, y;
-
-	if (width <= 0 || height <= 0)
-		return (NULL);
-
-	mee = malloc(sizeof(int *) * height);
-
-	if (mee == NULL)
-		return (NULL);
-
-	for (x = 0; x < height; x++)
-	{
-		mee[x] = malloc(sizeof(int) * width);
-
-		if (mee[x] == NULL)
+		if (*str == ' ')
 		{
-			for (; x >= 0; x--)
-				free(mee[x]);
+			if (in_word)
+			{
+				in_word = 0;
+				count++;
+			}
+		}
+		else
+		{
+			in_word = 1;
+		}
+		str++;
+	}
 
-			free(mee);
+	/* If the last character was part of a word, increment the count */
+	if (in_word)
+	{
+		count++;
+	}
+
+	return (count);
+}
+
+/**
+ * strtow - Splits a string into words.
+ * @str: The string to split.
+ *
+ * Return: A pointer to an array of strings (words).
+ */
+char **strtow(char *str)
+{
+	if (str == NULL || *str == '\0')
+		return (NULL);
+
+	int word_count = count_words(str);
+
+	if (word_count == 0)
+		return (NULL);
+
+	char **words = malloc(sizeof(char *) * (word_count + 1));
+
+	if (words == NULL)
+		return (NULL); /* Memory allocation failed */
+
+	int i = 0;
+	char *token = strtok(str, " ");
+
+	while (token != NULL)
+	{
+		words[i] = _strdup(token);
+		if (words[i] == NULL)
+		{
+			for (int j = 0; j < i; j++)
+				free(words[j]);
+			free(words);
 			return (NULL);
 		}
+		i++;
+		token = strtok(NULL, " ");
 	}
 
-	for (x = 0; x < height; x++)
-	{
-		for (y = 0; y < width; y++)
-			mee[x][y] = 0;
-	}
-
-	return (mee);
+	words[i] = NULL;
+	return (words);
 }
 
 /**
- * free_grid - Frees a 2-dimensional grid
- * @grid: The 2D grid to free.
- * @height: The height dimension of the grid.
+ * main - Entry point for testing the strtow function.
+ *
+ * Return: 0 on success, 1 on failure.
  */
-void free_grid(int **grid, int height)
+int main(void)
+{
+	char **tab;
+
+	tab = strtow("ALX School  #cisfu");
+	if (tab == NULL)
+	{
+		printf("Failed\n");
+		return (1);
+	}
+	print_tab(tab);
+	return (0);
+}
+
+/**
+ * print_tab - Prints an array of strings.
+ * @tab: The array to print.
+ *
+ * Return: Nothing.
+ */
+void print_tab(char **tab)
 {
 	int i;
 
-	for (i = 0; i < height; i++)
+	for (i = 0; tab[i] != NULL; ++i)
 	{
-		free(grid[i]);
+		printf("%s\n", tab[i]);
 	}
-
-	free(grid);
 }
 
