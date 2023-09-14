@@ -5,10 +5,10 @@
 #define ERR_MSG "Error"
 
 /**
- * is_digit - checks if a string contains a non-digit character
+ * is_digit - checks if a string contains only digit characters
  * @s: string to be evaluated
  *
- * Return: 0 if a non-digit is found, 1 otherwise
+ * Return: 1 if all characters are digits, 0 otherwise
  */
 int is_digit(char *s)
 {
@@ -43,7 +43,7 @@ int _strlen(char *s)
 }
 
 /**
- * errors - handles errors for main
+ * errors - handles errors by printing an error message and exiting with status 98
  */
 void errors(void)
 {
@@ -52,16 +52,71 @@ void errors(void)
 }
 
 /**
- * main - multiplies two positive numbers
- * @argc: number of arguments
- * @argv: array of arguments
- *
- * Return: always 0 (Success)
+ * initialize_result - initializes an integer array to zeros
+ * @result: the array to initialize
+ * @len: the length of the array
  */
+void initialize_result(int *result, int len)
+{
+	for (int i = 0; i < len; i++)
+		result[i] = 0;
+}
+
+/**
+ * perform_multiplication - calculates the product of two input strings and stores the result
+ * @s1: the first input string
+ * @s2: the second input string
+ * @result: an integer array to store the product
+ */
+void perform_multiplication(char *s1, char *s2, int *result)
+{
+	int len1 = _strlen(s1);
+	int len2 = _strlen(s2);
+
+	for (int len1_idx = len1 - 1; len1_idx >= 0; len1_idx--)
+	{
+		int digit1 = s1[len1_idx] - '0';
+		int carry = 0;
+
+		for (int len2_idx = len2 - 1; len2_idx >= 0; len2_idx--)
+		{
+			int digit2 = s2[len2_idx] - '0';
+			carry += result[len1_idx + len2_idx + 1] + (digit1 * digit2);
+			result[len1_idx + len2_idx + 1] = carry % 10;
+			carry /= 10;
+		}
+
+		if (carry > 0)
+			result[len1_idx + len2_idx + 1] += carry;
+	}
+}
+
+/**
+ * print_result - prints the result stored in an integer array
+ * @result: the integer array containing the result
+ * @len: the length of the result array
+ */
+void print_result(int *result, int len)
+{
+	int a = 0;
+	for (int i = 0; i < len - 1; i++)
+	{
+		if (result[i])
+			a = 1;
+		if (a)
+			putchar(result[i] + '0');
+	}
+
+	if (!a)
+		putchar('0');
+
+	putchar('\n');
+}
+
 int main(int argc, char *argv[])
 {
 	char *s1, *s2;
-	int len1, len2, len, i, carry, digit1, digit2, *result, a = 0;
+	int len1, len2, len, *result;
 
 	s1 = argv[1], s2 = argv[2];
 
@@ -77,38 +132,9 @@ int main(int argc, char *argv[])
 	if (!result)
 		return (1);
 
-	for (i = 0; i <= len1 + len2; i++)
-		result[i] = 0;
-
-	for (len1 = len1 - 1; len1 >= 0; len1--)
-	{
-		digit1 = s1[len1] - '0';
-		carry = 0;
-
-		for (len2 = _strlen(s2) - 1; len2 >= 0; len2--)
-		{
-			digit2 = s2[len2] - '0';
-			carry += result[len1 + len2 + 1] + (digit1 * digit2);
-			result[len1 + len2 + 1] = carry % 10;
-			carry /= 10;
-		}
-
-		if (carry > 0)
-			result[len1 + len2 + 1] += carry;
-	}
-
-	for (i = 0; i < len - 1; i++)
-	{
-		if (result[i])
-			a = 1;
-		if (a)
-			putchar(result[i] + '0');
-	}
-
-	if (!a)
-		putchar('0');
-
-	putchar('\n');
+	initialize_result(result, len);
+	perform_multiplication(s1, s2, result);
+	print_result(result, len);
 
 	free(result);
 
