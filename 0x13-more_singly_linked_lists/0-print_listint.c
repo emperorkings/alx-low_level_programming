@@ -3,21 +3,21 @@
 
 /**
  * print_listint - prints all the elements of a linked list
- * @eze: linked list of type listint_t to print
+ * @h: linked list of type listint_t to print
  * Return: number of nodes
  */
-size_t print_listint(const listint_t *eze)
+size_t print_listint(const listint_t *h)
 
 {
 	size_t num = 0;
 
-	while (eze)
+	while (h)
 	{
-		printf("%d\n", eze->n);
+		printf("%d\n", h->n);
 
 		num++;
 
-		eze = eze->next;
+		h = h->next;
 	}
 
 	return (num);
