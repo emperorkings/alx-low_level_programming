@@ -5,7 +5,7 @@
  * print_listint - Prints all the elements of a linked list.
  * @h: Pointer to the linked list of type listint_t to print.
  *
- * Return: Number of nodes.
+ * Return: Number of nodes innthe list
  */
 size_t print_listint(const listint_t *h)
 {
@@ -19,4 +19,5 @@ size_t print_listint(const listint_t *h)
 	}
 
 	return (num_nodes);
+
 }
