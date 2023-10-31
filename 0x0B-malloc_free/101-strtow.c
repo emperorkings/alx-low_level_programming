@@ -2,20 +2,17 @@
 #include "main.h"
 
 /**
- * count_words - Count the number of words in a string.
- *
- * @s: String to evaluate.
- *
- * Description: This function counts the words in a given string
- *
- * Return: The number of words.
+ * count_words - Count words in a string.
+ * @s: Input string.
+ * Return: Number of words.
  */
 int count_words(char *s)
 {
 	int flag = 0;
 	int word_count = 0;
+	int i = 0;
 
-	for (int i = 0; s[i] != '\0'; i++)
+	while (s[i] != '\0')
 	{
 		if (s[i] == ' ')
 			flag = 0;
@@ -24,6 +21,7 @@ int count_words(char *s)
 			flag = 1;
 			word_count++;
 		}
+		i++;
 	}
 
 	return (word_count);
@@ -31,17 +29,18 @@ int count_words(char *s)
 
 /**
  * allocate_strings - Allocate memory for an array of strings.
- *
  * @str: Input string.
- * @matrix: The matrix to store the strings.
- *
- * Description: This function takes an input string and an empty
- * Return: (1) Success or (0) Error.
+ * @matrix: Matrix to store strings.
+ * Return: 1 (Success) or 0 (Error).
  */
 int allocate_strings(char *str, char **matrix)
 {
 	char *tmp;
-	int i = 0, k = 0, len = 0, c = 0, start, end;
+	int i = 0;
+	int k = 0;
+	int len = 0;
+	int c = 0;
+	int start, end;
 
 	while (str[len])
 		len++;
@@ -81,11 +80,8 @@ int allocate_strings(char *str, char **matrix)
 
 /**
  * strtow - Split a string into words.
- *
- * @str: String to split.
- *
- * Description: This function splits a given string into
- * Return: A pointer to an array of strings (Success) or NULL (Error).
+ * @str: Input string.
+ * Return: Array of strings (Success) or NULL (Error).
  */
 char **strtow(char *str)
 {
