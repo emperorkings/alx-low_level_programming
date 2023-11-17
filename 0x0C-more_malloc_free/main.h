@@ -1,5 +1,5 @@
-#ifndef MAIN__HEADER
-#define MAIN_ MH
+#ifndef MAIN_HEADER
+#define MAIN_MH
 
 int _putchar(char c);
 
